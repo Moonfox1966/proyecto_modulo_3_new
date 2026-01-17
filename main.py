@@ -1,8 +1,7 @@
-
 # Sistema de gestión de datos
 # Tipos de datos y sentencias básicas
 # Sentencias condicionales
-
+# Sistema de gestión de datos estructuras de datos
 
 from modulos.menu import mostrar_menu, pedir_opcion
 from modulos.datos_basicos import cargar_nombre, cargar_tipo_usuario
@@ -17,71 +16,64 @@ from modulos.gestion_datos import (
 
 
 def cargar_edad_validada() -> int:
-    # Pide edad hasta que sea válida (entero y rango)
+    # Pide edad válida
     while True:
         texto = input("Ingrese edad (entero): ").strip()
 
         if not texto.isdigit():
-            print("Error: debe ser un número entero.")
-            continue  # vuelve a pedir
+            print("Error: debe ser entero.")
+            continue
 
         edad = int(texto)
 
         if not es_edad_valida(edad):
-            print("Error: edad fuera de rango (1 a 120).")
-            continue  # vuelve a pedir
+            print("Error: edad fuera de rango.")
+            continue
 
         return edad
 
 
+def cargar_email() -> str:
+    # Solicita email simple
+    return input("Ingrese email: ").strip().lower()
+
+
 def main() -> None:
-    # Lista principal del sistema (múltiples registros)
-    usuarios = []
+    usuarios = []      # lista
+    correos = set()    # set para emails únicos
 
     while True:
         mostrar_menu()
         opcion = pedir_opcion()
 
         if opcion == "0":
-            print("Saliendo del sistema...")
-            break  # termina el programa
-
-        if opcion not in {"1", "2", "3", "4"}:
-            print("Opción inválida.")
-            continue  # vuelve al menú
+            break
 
         if opcion == "1":
             nombre = cargar_nombre()
             edad = cargar_edad_validada()
             tipo = cargar_tipo_usuario()
+            email = cargar_email()
 
-            usuario = crear_usuario(nombre, edad, tipo)
-            agregar_usuario(usuarios, usuario)
-            print("Usuario agregado.")
+            usuario = crear_usuario(nombre, edad, tipo, email)
+            agregado = agregar_usuario(usuarios, correos, usuario)
+
+            if agregado:
+                print("Usuario agregado.")
+                mostrar_claves_y_valores(usuario)
+            else:
+                print("Error: email duplicado.")
 
         elif opcion == "2":
             listar_usuarios(usuarios)
 
-        elif opcion == "3":
-            nombre = input("Nombre a buscar: ").strip()
-            usuario = buscar_por_nombre(usuarios, nombre)
-            if usuario is None:
-                print("No encontrado.")
-            else:
-                print(
-                    f"Encontrado: {usuario['nombre']} | {usuario['edad']} | "
-                    f"{usuario['tipo']} | {usuario['categoria']}"
-                )
-
         elif opcion == "4":
-            nombre = input("Nombre a eliminar: ").strip()
-            eliminado = eliminar_por_nombre(usuarios, nombre)
-            if eliminado:
-                print("Usuario eliminado.")
-            else:
-                print("No se pudo eliminar: no existe.")
+            email = cargar_email()
+            eliminado = eliminar_por_email(usuarios, correos, email)
+            print("Eliminado." if eliminado else "No existe.")
 
-    # Fin del programa
+        else:
+            print("Opción no implementada en esta lección.")
 
 
 if __name__ == "__main__":
