@@ -1,7 +1,8 @@
 # Sistema de gestión de datos
 # Tipos de datos y sentencias básicas
 # Sentencias condicionales
-# Sistema de gestión de datos estructuras de datos
+# Sistema de gestión de datos - estructuras de datos
+# Sistema de gestión de datos - funciones
 
 from modulos.menu import mostrar_menu, pedir_opcion
 from modulos.datos_basicos import cargar_nombre, cargar_tipo_usuario
@@ -11,12 +12,16 @@ from modulos.gestion_datos import (
     agregar_usuario,
     listar_usuarios,
     eliminar_por_email,
-    mostrar_claves_y_valores,
+)
+from modulos.funciones_utiles import (
+    contar_usuarios,
+    es_admin,
+    mostrar_resumen,
 )
 
 
 def cargar_edad_validada() -> int:
-    # Pide edad válida
+    # Solicita edad válida usando funciones y condicionales
     while True:
         texto = input("Ingrese edad (entero): ").strip()
 
@@ -34,13 +39,13 @@ def cargar_edad_validada() -> int:
 
 
 def cargar_email() -> str:
-    # Solicita email simple
+    # Solicita email
     return input("Ingrese email: ").strip().lower()
 
 
 def main() -> None:
-    usuarios = []      # lista
-    correos = set()    # set para emails únicos
+    usuarios = []
+    correos = set()
 
     while True:
         mostrar_menu()
@@ -59,13 +64,17 @@ def main() -> None:
             agregado = agregar_usuario(usuarios, correos, usuario)
 
             if agregado:
-                print("Usuario agregado.")
-                mostrar_claves_y_valores(usuario)
+                print("Usuario agregado:")
+                mostrar_resumen(usuario)
+
+                if es_admin(usuario):
+                    print("Aviso: el usuario es administrador.")
             else:
                 print("Error: email duplicado.")
 
         elif opcion == "2":
             listar_usuarios(usuarios)
+            print("Total usuarios:", contar_usuarios(usuarios))
 
         elif opcion == "4":
             email = cargar_email()
@@ -73,7 +82,9 @@ def main() -> None:
             print("Eliminado." if eliminado else "No existe.")
 
         else:
-            print("Opción no implementada en esta lección.")
+            print("Opción no implementada.")
+
+    print("Fin del sistema.")
 
 
 if __name__ == "__main__":
