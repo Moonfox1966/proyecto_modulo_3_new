@@ -1,7 +1,7 @@
-"""
-Sistema de gestión de datos
-Lección 2 - Tipos de datos y sentencias básicas
-"""
+
+# Sistema de gestión de datos
+# Tipos de datos y sentencias básicas
+# Sentencias condicionales
 
 from modulos.datos_basicos import (
     cargar_nombre,
@@ -10,24 +10,42 @@ from modulos.datos_basicos import (
     crear_registro,
 )
 
+from modulos.validaciones import (
+    es_edad_valida,
+    obtener_categoria_por_edad,
+)
 
 def main() -> None:
-    #Función principal.
-    usuarios = []  # lista de diccionarios
+    # Función principal.
+    usuarios = []
 
     nombre = cargar_nombre()
-    edad = cargar_edad()
-    tipo = cargar_tipo_usuario()
 
-    usuario = crear_registro(nombre, edad, tipo)
+    while True:
+        edad = cargar_edad()
+
+        # Validación condicional (error de entrada)
+        if es_edad_valida(edad):
+            break
+
+        print("Error: edad fuera de rango (1 a 120).")
+
+    tipo = cargar_tipo_usuario()
+    categoria = obtener_categoria_por_edad(edad)
+
+    usuario = crear_registro(nombre, edad, tipo, categoria)
     usuarios.append(usuario)
 
     print("\nUsuario registrado:")
     print(f"Nombre: {usuario['nombre']}")
     print(f"Edad: {usuario['edad']}")
     print(f"Tipo: {usuario['tipo']}")
+    print(f"Categoría: {usuario['categoria']}")
 
-    print("\nTotal de usuarios registrados:", len(usuarios))
+    # Expresión booleana y lógica simple
+    es_admin = usuario["tipo"].lower() == "admin"
+    if es_admin and usuario["categoria"] == "adulto mayor":
+        print("Aviso: Admin y Adulto Mayor (validación lógica anidada).")
 
 
 if __name__ == "__main__":
