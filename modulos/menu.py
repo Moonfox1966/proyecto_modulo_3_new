@@ -9,9 +9,9 @@ def mostrar_menu() -> None:
     print("2) Listar usuarios")
     print("3) Buscar usuario por nombre")
     print("4) Eliminar usuario por nombre")
-    print("0) Salir")
+    print("5) Salir")
 
 
 def pedir_opcion() -> str:
     # Pide opción como texto 
-    return input("Seleccione una opción: ").strip()
+    return input("\n Seleccione una opción: ").strip()

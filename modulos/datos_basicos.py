@@ -18,8 +18,10 @@ def cargar_nombre() -> str:
 def cargar_tipo_usuario() -> str:
     # Solicita y retorna el tipo validado.
     while True:
-        tipo = input("Ingrese tipo de usuario: ").strip()
-        if es_tipo_valido(tipo):
+        tipo = input("Ingrese tipo de usuario(Admin, Usuario o Invitado)(Enter = Usuario): ").strip()
+        if tipo == "":
+            return "Usuario"
+        elif es_tipo_valido(tipo):
             return tipo
         print("Error: tipo no válido.")
 

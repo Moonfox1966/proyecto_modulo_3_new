@@ -34,7 +34,7 @@ def agregar_usuario(usuarios: list, correos: set, usuario: dict) -> bool:
 def listar_usuarios(usuarios: list) -> None:
     # Lista todos los usuarios
     if not usuarios:
-        print("No hay usuarios registrados.")
+        print("\n No hay usuarios registrados.")
         return
 
     print("\n--- LISTADO ---")

@@ -51,7 +51,7 @@ def main() -> None:
         mostrar_menu()
         opcion = pedir_opcion()
 
-        if opcion == "0":
+        if opcion == "5":
             break
 
         if opcion == "1":
@@ -64,7 +64,7 @@ def main() -> None:
             agregado = agregar_usuario(usuarios, correos, usuario)
 
             if agregado:
-                print("Usuario agregado:")
+                print("\n --- Usuario agregado:")
                 mostrar_resumen(usuario)
 
                 if es_admin(usuario):
