@@ -11,8 +11,8 @@ from modulos.gestion_datos import (
     crear_usuario,
     agregar_usuario,
     listar_usuarios,
-    buscar_por_nombre,
-    eliminar_por_nombre,
+    eliminar_por_email,
+    mostrar_claves_y_valores,
 )
 
 
