@@ -11,6 +11,7 @@ from modulos.gestion_datos import (
     crear_usuario,
     agregar_usuario,
     listar_usuarios,
+    buscar_por_nombre,
     eliminar_por_email,
 )
 from modulos.funciones_utiles import (
@@ -74,7 +75,19 @@ def main() -> None:
 
         elif opcion == "2":
             listar_usuarios(usuarios)
-            print("Total usuarios:", contar_usuarios(usuarios))
+            print("Total Usuarios CESFAM:", contar_usuarios(usuarios))
+
+        elif opcion == "3":
+            nombre = input("Nombre a buscar: ").strip()
+            usuario = buscar_por_nombre(usuarios, nombre)
+
+            if usuario is None:
+                print("No encontrado.")
+            else:
+                print(
+                    f"Encontrado: {usuario['nombre']} | {usuario['edad']} | "
+                    f"{usuario['tipo']} | {usuario['categoria']}")
+
 
         elif opcion == "4":
             email = cargar_email()

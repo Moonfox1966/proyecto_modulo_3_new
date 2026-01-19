@@ -37,13 +37,20 @@ def listar_usuarios(usuarios: list) -> None:
         print("\n No hay usuarios registrados.")
         return
 
-    print("\n--- LISTADO ---")
+    print("\n--- LISTADO USUARIOS CESFAM---")
     for u in usuarios:
         print(
             f"- {u.get('nombre')} | {u.get('edad')} | "
             f"{u.get('tipo')} | {u.get('categoria')} | {u.get('email')}"
         )
 
+def buscar_por_nombre(usuarios: list, nombre: str) -> dict | None:
+    # Busca el primer usuario que coincida por nombre (ignorando mayúsculas)
+    nombre = nombre.strip().lower()
+    for u in usuarios:
+        if u["nombre"].strip().lower() == nombre:
+            return u
+    return None
 
 def eliminar_por_email(usuarios: list, correos: set, email: str) -> bool:
     # Elimina usuario usando email

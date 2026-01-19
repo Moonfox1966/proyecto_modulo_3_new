@@ -4,7 +4,7 @@
 
 def mostrar_menu() -> None:
     # Imprime opciones del sistema
-    print("\n--- MENÚ ---")
+    print("\n--- MENÚ INGRESO CESFAM---")
     print("1) Agregar usuario")
     print("2) Listar usuarios")
     print("3) Buscar usuario por nombre")
